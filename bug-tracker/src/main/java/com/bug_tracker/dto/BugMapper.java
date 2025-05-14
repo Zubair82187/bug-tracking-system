@@ -13,8 +13,8 @@ public class BugMapper {
         dto.setPriority(bugModel.getPriority());
         dto.setStatus(bugModel.getStatus());
         dto.setProject_id(bugModel.getProject().getId());
-        dto.setCreated_by_id(bugModel.getCreated_by().getId());
-        dto.setAssigned_to_id(bugModel.getAssigned_to().getId());
+        dto.setCreated_by_id(bugModel.getId());
+        dto.setAssigned_to_id(bugModel.getId());
         return dto;
     }
 

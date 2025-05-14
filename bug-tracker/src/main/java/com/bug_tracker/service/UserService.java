@@ -5,6 +5,7 @@ import com.bug_tracker.exception.NullValuesException;
 import com.bug_tracker.exception.NotFoundException;
 import com.bug_tracker.model.UserModel;
 import com.bug_tracker.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -20,10 +21,12 @@ public class UserService {
 
     //create a user and return user
     public UserModel createUser(UserModel user){
-        if(!checkDetail(user)){
-            throw new NullValuesException("Enter all the details");
+        if (checkDetail(user)) {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+            user.setPassword(encoder.encode(user.getPassword()));
+            return userRepository.save(user);
         }
-        return userRepository.save(user);
+        throw new NullValuesException("Enter all the details");
     }
 
 
@@ -58,7 +61,7 @@ public class UserService {
 
     private boolean checkDetail(UserModel user){
         return user.getName() != null && !user.getName().isEmpty() &&
-                user.getEmail() != null && !user.getEmail().isEmpty() &&
+                user.getUsername() != null && !user.getUsername().isEmpty() &&
                 user.getPassword() != null && !user.getPassword().isEmpty() &&
                 user.getRole() != null;
     }

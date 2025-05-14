@@ -18,7 +18,7 @@ public class UserController {
     }
 
     //crate a user
-    @PostMapping("/")
+    @PostMapping("/register")
     public ResponseEntity<UserModel> createUser(@RequestBody UserModel user){
         return  ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(user));
     }
@@ -30,11 +30,12 @@ public class UserController {
     }
 
     //get all the users
-    @GetMapping("/")
+    @GetMapping("/users")
     public ResponseEntity<List<UserModel>> users(){
         return ResponseEntity.status(HttpStatus.FOUND).body(userService.users());
     }
 
+    //delete a user by id
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable int id){
         return ResponseEntity.status(HttpStatus.OK).body(userService.deleteUser(id));
