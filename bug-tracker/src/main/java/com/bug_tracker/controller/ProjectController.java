@@ -37,7 +37,7 @@ public class ProjectController {
     }
 
     //this is responsible to add a project.
-    @PostMapping("/")
+    @PostMapping("/add")
     public ResponseEntity<ProjectModel> addProject(@RequestBody ProjectModel projectModel){
         return ResponseEntity.status(HttpStatus.CREATED).body(projectService.addProject(projectModel));
     }
@@ -50,7 +50,7 @@ public class ProjectController {
     }
 
     //This is responsible to delete a project.
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Boolean> deleteProject(@PathVariable int id){
         return ResponseEntity.status(HttpStatus.OK).body((Boolean) projectService.deleteProject(id));
     }

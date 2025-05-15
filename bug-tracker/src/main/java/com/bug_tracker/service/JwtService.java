@@ -1,5 +1,6 @@
 package com.bug_tracker.service;
 
+import com.bug_tracker.exception.NotAuthenticatedException;
 import com.bug_tracker.exception.NotCreatedException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -68,7 +69,12 @@ public class JwtService {
 
     public boolean validateToken(String token, UserDetails userDetails) {
         final String userName = extractUsername(token);
-        return (userName.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        if(userName.equals(userDetails.getUsername()) && !isTokenExpired(token)){
+            return true;
+        }
+        else {
+            throw new NotAuthenticatedException("Unauthorize error");
+        }
     }
 
     private boolean isTokenExpired(String token) {
