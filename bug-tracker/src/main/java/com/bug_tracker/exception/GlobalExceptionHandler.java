@@ -35,4 +35,10 @@ public class GlobalExceptionHandler {
         ResponseError error = new ResponseError(LocalDateTime.now(), ex.getMessage(), HttpStatus.NOT_MODIFIED.value());
         return new ResponseEntity<>(error, HttpStatus.NOT_MODIFIED);
     }
+
+    @ExceptionHandler(NotAuthenticatedException.class)
+    public ResponseEntity<Object> authenticationException(NotAuthenticatedException ex){
+        ResponseError error = new ResponseError(LocalDateTime.now(), ex.getMessage(), HttpStatus.NOT_ACCEPTABLE.value());
+        return new  ResponseEntity<>(error, HttpStatus.NOT_ACCEPTABLE);
+    }
 }
